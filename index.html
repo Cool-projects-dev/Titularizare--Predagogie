@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz Titularizare - Pedagogie</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #dbeafe;
+      color: #1e3a8a;
+      padding-top: 60px;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #1e40af;
+      color: white;
+      padding: 10px 20px;
+      z-index: 999;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+    .question {
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      box-shadow: 0 0 4px rgba(0,0,0,0.05);
+    }
+    .question.correct {
+      background-color: #dcfce7;
+      border-left: 4px solid #16a34a;
+    }
+    .question.wrong {
+      background-color: #fee2e2;
+      border-left: 4px solid #dc2626;
+    }
+    label {
+      display: block;
+      margin: 5px 0;
+    }
+    button, select {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      background: #2563eb;
+      color: white;
+      cursor: pointer;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    #result {
+      background: #fef9c3;
+      margin-top: 20px;
+      padding: 12px;
+      font-weight: bold;
+      border-radius: 6px;
+    }
+    h1, h2 {
+      color: #1e40af;
+    }
+    section {
+      margin-bottom: 50px;
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="#" onclick="showSection('quiz')">📝 Quiz</a>
+  <a href="#" onclick="showSection('invata')">📖 Învață rapid</a>
+</nav>
+
+
+<div class="container">
+<section id="quizSection" style ="display: none;"></section> 
+<div style="display: flex; align-items: center; justify-content: space-between;">
+    <h2>📝 Test Grilă Pedagogie</h2>
+    <div>
+      <label for="questionCountInline"><strong>Questions:</strong></label>
+      <select id="questionCountInline" onchange="syncQuestionCount(this)">
+        <option value="10">10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="intro">
+    <p>Selectează câte întrebări dorești:</p>
+    <select id="questionCount">
+      <option value="10">10 întrebări</option>
+      <option value="25">25 întrebări</option>
+      <option value="50">50 întrebări</option>
+      <option value="100">100 întrebări</option>
+    </select>
+    <br>
+    <button onclick="startQuiz()">Începe testul</button>
+  </div>
+
+  <form id="quizForm" style="display: none;"></form>
+  <button id="submitBtn" style="display: none;" onclick="calculateScore()">Trimite răspunsurile</button>
+  <div id="result" style="display: none;"></div>
+  <div style="margin-top: 10px;">
+    <button id="resetBtn" style="display: none; background: #6b7280;" onclick="restartQuiz()">🔄 Resetează întrebările</button>
+    <button id="restartBtn" style="display: none;" onclick="restartQuiz()">Reîncepe testul</button>
+  </div>
+</section>
+<script>
+const allQuestions = [
+  { question: "Care este obiectul de studiu al pedagogiei?", options: ["Familia", "Educația", "Psihologia", "Curriculumul"], answer: "Educația" },
+  { question: "Ce metodă didactică presupune lucrul în echipă?", options: ["Prelegerea", "Învățarea prin cooperare", "Observația", "Învățarea individuală"], answer: "Învățarea prin cooperare" },
+  { question: "Ce tip de educație are loc spontan și nestructurat?", options: ["Formală", "Nonformală", "Informală", "Școlară"], answer: "Informală" },
+  { question: "Ce formă de evaluare are rol diagnostic?", options: ["Inițială", "Formativă", "Sumativă", "Continuă"], answer: "Inițială" },
+  { question: "Ce metodă modernă implică rezolvarea unei sarcini reale?", options: ["Testul", "Proiectul educațional", "Lecția", "Ascultarea"], answer: "Proiectul educațional" },
+  { question: "Ce componentă definește ce trebuie să învețe elevul?", options: ["Metoda", "Obiectivul", "Mijloacele", "Conținutul"], answer: "Obiectivul" },
+  { question: "Ce tip de curriculum este ascuns în relațiile din școală?", options: ["Operațional", "Formal", "Ascuns", "Informal"], answer: "Ascuns" },
+  { question: "Ce principiu presupune adaptarea la nivelul elevului?", options: ["Intuirea", "Accesibilitatea", "Activizarea", "Individualizarea"], answer: "Accesibilitatea" },
+  { question: "Ce tip de învățare presupune colaborare între elevi?", options: ["Mecanică", "Prin cooperare", "Prin imitație", "Prin reflecție"], answer: "Prin cooperare" },
+  { question: "Ce metodă presupune explicarea noțiunilor?", options: ["Conversația", "Exercițiul", "Explicația", "Testarea"], answer: "Explicația" },
+  { question: "Ce scop are evaluarea formativă?", options: ["A certifica nivelul final", "A oferi note", "A ghida învățarea", "A promova elevii"], answer: "A ghida învățarea" },
+  { question: "Ce tip de conținut este specific pedagogiei preșcolare?", options: ["Teorie curriculară", "Metodica jocului", "Psihologia adolescenței", "Educația vocațională"], answer: "Metodica jocului" },
+  { question: "Ce este curriculumul operațional?", options: ["Programa națională", "Plan cadru", "Curriculum adaptat clasei", "Test de evaluare"], answer: "Curriculum adaptat clasei" },
+  { question: "Ce presupune metoda proiectului?", options: ["Prelegere", "Evaluare continuă", "Activitate practică integrată", "Ascultare orală"], answer: "Activitate practică integrată" },
+  { question: "Ce este o strategie didactică?", options: ["Doar metoda aleasă", "Plan de lecție", "Ansamblu de metode și mijloace", "Temă pentru acasă"], answer: "Ansamblu de metode și mijloace" },
+  { question: "Care este scopul educației permanente?", options: ["Diplome", "Adaptare continuă", "Competiție", "Evaluare finală"], answer: "Adaptare continuă" },
+  { question: "Ce rol are predarea intuitivă?", options: ["Memorare", "Folosirea vizualului", "Testare rapidă", "Lecture orală"], answer: "Folosirea vizualului" },
+  { question: "Ce înseamnă personalizarea învățării?", options: ["Predare identică", "Adaptare la stiluri", "Metodă clasică", "Fișe de lucru"], answer: "Adaptare la stiluri" },
+  { question: "Ce este învățarea experiențială?", options: ["Teorie acumulată", "Reflecție și practică", "Exerciții scrise", "Audio pasiv"], answer: "Reflecție și practică" },
+  { question: "Ce caracterizează educația nonformală?", options: ["Diplome", "Evaluări standard", "Activități extracurriculare", "Predare frontală"], answer: "Activități extracurriculare" },
+  { question: "Ce înseamnă educație incluzivă?", options: ["Pentru premianți", "Doar profesori", "Pentru toți", "În școli speciale"], answer: "Pentru toți" },
+  { question: "Ce presupune pedagogia constructivistă?", options: ["Elev pasiv", "Evaluare permanentă", "Învățare activă", "Exerciții repetitive"], answer: "Învățare activă" },
+  { question: "Care este finalitatea supremă a educației?", options: ["Test final", "Diplomă", "Personalitate armonioasă", "Carieră"], answer: "Personalitate armonioasă" },
+  { question: "Ce este o metodă activă?", options: ["Lecția", "Explicația", "Proiectul", "Audierea"], answer: "Proiectul" },
+  { question: "Ce metodă stimulează autonomia elevului?", options: ["Dictarea", "Predarea directă", "Învățarea prin descoperire", "Imitația"], answer: "Învățarea prin descoperire" },
+  // ... continuarea până la 50 urmează
+ // … întrebările 26–50 omit aici din spațiu
+  { question: "Ce este evaluarea sumativă?", options: ["Evaluare inițială", "Evaluare intermediară", "Evaluare finală", "Observare informală"], answer: "Evaluare finală" },
+  { question: "Care este rolul feed-back-ului?", options: ["Doar evaluare", "Corectare și îndrumare", "Învățare pasivă", "Scăderea scorului"], answer: "Corectare și îndrumare" },
+  { question: "Ce este învățarea asincronă?", options: ["Elevii învață simultan", "Elevii învață separat, în timp propriu", "Toți sunt prezenți în clasă", "Testare simultană"], answer: "Elevii învață separat, în timp propriu" },
+  { question: "Ce sunt competențele cheie?", options: ["Abilități fizice", "Cunoștințe de bază", "Comportamente sociale", "Totalitatea deprinderilor esențiale pentru viață"], answer: "Totalitatea deprinderilor esențiale pentru viață" },
+  { question: "Ce reprezintă principiul sistematizării?", options: ["Haos creativ", "Predare întâmplătoare", "Organizare logică și progresivă", "Repetiție mecanică"], answer: "Organizare logică și progresivă" },
+  { question: "Ce este microteachingul?", options: ["Predare pentru copii mici", "Simulare didactică în scop de formare", "Evaluare orală", "Lecție de test"], answer: "Simulare didactică în scop de formare" },
+  { question: "Care este diferența dintre scop și obiectiv?", options: ["Sunt identice", "Scop = general, obiectiv = specific", "Obiectiv = vis, scop = plan", "Nu există diferență"], answer: "Scop = general, obiectiv = specific" },
+  { question: "Ce înseamnă diferențierea instruirii?", options: ["Predare la fel pentru toți", "Adaptarea în funcție de nevoi", "Predare rapidă", "Utilizarea aceleiași metode"], answer: "Adaptarea în funcție de nevoi" },
+  { question: "Ce este evaluarea continuă?", options: ["Test final", "Evaluare pe parcursul învățării", "Evaluare la început", "Evaluare la solicitarea elevilor"], answer: "Evaluare pe parcursul învățării" },
+  { question: "Ce înseamnă competență?", options: ["Doar informație", "Doar abilitate", "Cunoștințe + atitudini + abilități", "Rezultate școlare"], answer: "Cunoștințe + atitudini + abilități" }
+];
+let selectedQuestions = [];
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+function syncQuestionCount(el) {
+  const value = el.value;
+  document.getElementById("questionCount").value = value;
+}
+
+function startQuiz() {
+  const count = parseInt(document.getElementById("questionCount").value);
+  shuffle(allQuestions);
+  selectedQuestions = allQuestions.slice(0, count);
+
+  const form = document.getElementById("quizForm");
+  form.innerHTML = "";
+
+  selectedQuestions.forEach((q, index) => {
+    const div = document.createElement("div");
+    div.className = "question";
+    div.innerHTML = `<h3>${index + 1}. ${q.question}</h3>`;
+    q.options.forEach(opt => {
+      div.innerHTML += `<label><input type="radio" name="q${index}" value="${opt}"> ${opt}</label>`;
+    });
+    form.appendChild(div);
+  });
+
+  document.getElementById("intro").style.display = "none";
+  form.style.display = "block";
+  document.getElementById("submitBtn").style.display = "inline-block";
+  document.getElementById("result").style.display = "none";
+  document.getElementById("restartBtn").style.display = "none";
+  document.getElementById("resetBtn").style.display = "inline-block";
+}
+
+function calculateScore() {
+  let score = 0;
+  const form = document.getElementById("quizForm");
+
+  selectedQuestions.forEach((q, index) => {
+    const selected = document.querySelector(`input[name="q${index}"]:checked`);
+    const questionDiv = form.children[index];
+    questionDiv.classList.remove("correct", "wrong");
+
+    if (selected && selected.value === q.answer) {
+      score++;
+      questionDiv.classList.add("correct");
+    } else {
+      questionDiv.classList.add("wrong");
+      const labels = questionDiv.querySelectorAll("label");
+      labels.forEach(label => {
+        if (label.textContent.includes(q.answer)) {
+          label.style.fontWeight = "bold";
+          label.style.textDecoration = "underline";
+        }
+      });
+    }
+
+    questionDiv.querySelectorAll("input").forEach(i => i.disabled = true);
+  });
+
+  document.getElementById("result").innerText = `Ai obținut ${score} din ${selectedQuestions.length} puncte.`;
+  document.getElementById("result").style.display = "block";
+  document.getElementById("submitBtn").style.display = "none";
+  document.getElementById("restartBtn").style.display = "inline-block";
+}
+
+function restartQuiz() {
+  document.getElementById("intro").style.display = "block";
+  document.getElementById("quizForm").style.display = "none";
+  document.getElementById("result").style.display = "none";
+  document.getElementById("restartBtn").style.display = "none";
+  document.getElementById("submitBtn").style.display = "none";
+  document.getElementById("resetBtn").style.display = "none";
+  document.getElementById("questionCountInline").value = document.getElementById("questionCount").value;
+}
+function showSection(name) {
+  document.getElementById("quizSection").style.display = name === "quiz" ? "block" : "none";
+  document.getElementById("invataSection").style.display = name === "invata" ? "block" : "none";
+
+  // Resetăm interfața dacă revenim la Quiz
+  if (name === "quiz") {
+    restartQuiz();
+    window.scrollTo(0, 0);
+  }
+  window.onload = () => showSection('quiz');
+
+}
+
+</script>
+<section id="invataSection" style="display:none;">
+  <h2>📖 Fișă de învățare – Pedagogia învățământului</h2>
+  <ul>
+    <li><strong>✅ Pedagogia – știința educației</strong>
+      <ul><li>Obiect: educația</li><li>Ramuri: didactica, teoria instruirii, pedagogia preșcolară etc.</li></ul>
+    </li>
+    <li><strong>✅ Forme ale educației</strong>
+      <ul><li>Formală</li><li>Nonformală</li><li>Informală</li></ul>
+    </li>
+    <li><strong>✅ Finalitățile educației</strong>
+      <ul><li>Ideal educațional</li><li>Scopuri</li><li>Obiective</li></ul>
+    </li>
+    <li><strong>✅ Componente</strong>
+      <ul><li>Obiective, Conținuturi, Metode, Mijloace, Evaluare</li></ul>
+    </li>
+    <li><strong>✅ Metode</strong>
+      <ul><li>Clasice: explicația, conversația, lecția</li><li>Moderne: descoperire, cooperare, proiect</li></ul>
+    </li>
+    <li><strong>✅ Principii</strong>
+      <ul><li>Accesibilitate, Activizare, Intuirea, Sistematizare</li></ul>
+    </li>
+    <li><strong>✅ Evaluarea</strong>
+      <ul><li>Inițială, Formativă, Sumativă</li></ul>
+    </li>
+  </ul>
+  <section id="exprimariSection">
+  <h2>🗣️ Exprimări utile pentru eseul pedagogic</h2>
+
+  <h3>📌 Termeni și concepte frecvent utilizați</h3>
+  <ul>
+    <li>actorii educaționali – profesorul și elevul</li>
+    <li>procesul instructiv-educativ / predare-învățare-evaluare</li>
+    <li>centrare pe elev, adaptare la nevoile educabililor</li>
+    <li>curriculum centrat pe competențe</li>
+    <li>scenariu didactic, climat educațional optim</li>
+    <li>stiluri de învățare: vizual, auditiv, kinestezic</li>
+    <li>inteligență emoțională, gândire critică, motivație intrinsecă</li>
+  </ul>
+
+  <h3>💬 Expresii recomandate în redactarea eseului</h3>
+  <ul>
+    <li>„Procesul educațional joacă un rol fundamental în dezvoltarea personalității elevului.”</li>
+    <li>„O metodologie eficientă presupune utilizarea unor strategii inovatoare.”</li>
+    <li>„Evaluarea formativă contribuie la reglarea și optimizarea învățării.”</li>
+    <li>„Învățarea prin cooperare stimulează dezvoltarea competențelor sociale.”</li>
+    <li>„Predarea interactivă facilitează construirea unor cunoștințe durabile și semnificative.”</li>
+    <li>„Profesorul trebuie să adopte o abordare diferențiată, adaptată stilurilor de învățare.”</li>
+    <li>„O evaluare autentică reflectă capacitatea elevului de a aplica cunoștințele în contexte reale.”</li>
+  </ul>
+
+  <h3>🎯 Formulări-cheie de integrare în eseu</h3>
+  <ul>
+    <li>„... în vederea obținerii performanței/progresului școlar...”</li>
+    <li>„... contribuie la formarea competențelor-cheie prevăzute în curriculum...”</li>
+    <li>„... asigură un cadru coerent și accesibil pentru învățare...”</li>
+    <li>„... susține implicarea activă și dezvoltarea responsabilității elevului...”</li>
+  </ul>
+</section>
+
+</section>
+
+</div> <!-- end container -->
+</body>
+</html>
