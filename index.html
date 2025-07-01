@@ -123,6 +123,257 @@
 </section>
 <script>
 const allQuestions = [
+   {
+    question: "Ce reprezintă finalitățile educaționale?",
+    options: ["Mijloacele didactice", "Enunțuri privind rezultatul așteptat al educației", "Continuturile de învățare", "Tipurile de evaluare"],
+    answer: "Enunțuri privind rezultatul așteptat al educației"
+  },
+  {
+    question: "Ce întrebare curriculară corespunde finalităților educației?",
+    options: ["Ce se învață?", "Cum se învață?", "Cum evaluăm?", "În ce scop se învață?"],
+    answer: "În ce scop se învață?"
+  },
+  {
+    question: "Ce rol au finalitățile în procesul educațional?",
+    options: ["Stabilesc metodele", "Sunt prima componentă care ghidează celelalte", "Sunt opționale", "Reflectă doar interesele elevului"],
+    answer: "Sunt prima componentă care ghidează celelalte"
+  },
+  {
+    question: "Ce categorie are cel mai mare grad de generalitate?",
+    options: ["Obiectiv operațional", "Competență specifică", "Ideal educațional", "Scop educațional"],
+    answer: "Ideal educațional"
+  },
+  {
+    question: "Unde este prevăzut idealul educațional?",
+    options: ["Manuale alternative", "Foaia de parcurs", "Legislația școlară", "Fișa de observație"],
+    answer: "Legislația școlară"
+  },
+  {
+    question: "Ce exprimă idealul educațional conform Legii Educației?",
+    options: ["Formarea competențelor generale", "Cadrul didactic competent", "Dezvoltarea liberă, integrală și armonioasă", "Achiziții cognitive timpurii"],
+    answer: "Dezvoltarea liberă, integrală și armonioasă"
+  },
+  {
+    question: "Care este scopul educației primare conform legislației?",
+    options: ["A obține note mari", "Formarea competențelor", "Socializarea informală", "Clasificarea elevilor"],
+    answer: "Formarea competențelor"
+  },
+  {
+    question: "Ce sunt obiectivele educaționale?",
+    options: ["Finalități derivate din metode", "Finalități derivate din scopuri", "Abilități practice ale profesorului", "Componente ale evaluării"],
+    answer: "Finalități derivate din scopuri"
+  },
+  {
+    question: "Ce nivel de finalitate este cel mai concret?",
+    options: ["Idealul", "Scopul", "Competența generală", "Obiectivul operațional"],
+    answer: "Obiectivul operațional"
+  },
+  {
+    question: "Obiectivele operaționale se formulează în termeni de:",
+    options: ["Concepte teoretice", "Intenții generale", "Comportamente observabile și măsurabile", "Valori și atitudini"],
+    answer: "Comportamente observabile și măsurabile"
+  },
+  {
+    question: "Competențele generale se formează:",
+    options: ["Într-o lecție", "Pe durata unei săptămâni", "Pe parcursul unui ciclu de învățământ", "Numai în clasa I"],
+    answer: "Pe parcursul unui ciclu de învățământ"
+  },
+  {
+    question: "Competențele specifice derivă din:",
+    options: ["Curriculum", "Competențele generale", "Testele sumative", "Evaluarea inițială"],
+    answer: "Competențele generale"
+  },
+  {
+    question: "Cum se numește procesul de detaliere progresivă a obiectivelor?",
+    options: ["Evaluare", "Taxonomie", "Formare profesională", "Operaționalizare"],
+    answer: "Operaționalizare"
+  },
+  {
+    question: "Care este scopul operaționalizării obiectivelor?",
+    options: ["Simplificarea testelor", "Realizarea unui design grafic", "Formularea lor clară și evaluabilă", "Crearea planului de carieră"],
+    answer: "Formularea lor clară și evaluabilă"
+  },
+  {
+    question: "Ce nu trebuie să conțină un obiectiv operațional?",
+    options: ["Un singur comportament clar", "Formulări ambigue", "Rezultat imediat observabil", "Condiții de realizare"],
+    answer: "Formulări ambigue"
+  },
+  {
+    question: "Ce include competența?",
+    options: ["Numai cunoștințe", "Cunoștințe și abilități", "Cunoștințe, abilități și atitudini", "Doar aptitudini fizice"],
+    answer: "Cunoștințe, abilități și atitudini"
+  },
+  {
+    question: "Ce tip de obiective implică sinteza și evaluarea?",
+    options: ["Afective", "Cognitive", "Psihomotorii", "Tactice"],
+    answer: "Cognitive"
+  },
+  {
+    question: "Obiectivele din domeniul afectiv includ:",
+    options: ["Reflexe involuntare", "Reacția la valori", "Numerație", "Calcul mintal"],
+    answer: "Reacția la valori"
+  },
+  {
+    question: "Ce obiectiv corespunde domeniului psihomotor?",
+    options: ["A redacta eseu", "A analiza textul", "A colora forme", "A formula argumente"],
+    answer: "A colora forme"
+  },
+  {
+    question: "Obiectivele psihomotorii se referă la:",
+    options: ["Competențe civice", "Abilități motorii și comunicare nonverbală", "Discuții etice", "Idei abstracte"],
+    answer: "Abilități motorii și comunicare nonverbală"
+  },
+  {
+    question: "Ce condiții cere F.R. Mager pentru un obiectiv operațional?",
+    options: ["Să conțină 2-3 verbe", "Doar comportament", "Comportament, condiții, performanță minimă", "Descrierea profesorului"],
+    answer: "Comportament, condiții, performanță minimă"
+  },
+  {
+    question: "Ce este o finalitate macroeducațională?",
+    options: ["Activitate de grup", "Finalitate legală de sistem", "Competență specifică", "Model comportamental observabil"],
+    answer: "Finalitate legală de sistem"
+  },
+   {
+    question: "Ce se poate întâmpla dacă un obiectiv include mai multe verbe comportamentale?",
+    options: ["Devine mai clar", "Este mai eficient", "Devine ambiguu și greu de evaluat", "Este mai ușor de memorat"],
+    answer: "Devine ambiguu și greu de evaluat"
+  },
+  {
+    question: "Cum trebuie formulat nivelul de performanță într-un obiectiv?",
+    options: ["General și flexibil", "În termeni de comportamente interne", "Cu indicatori măsurabili", "Numai sub formă de întrebări"],
+    answer: "Cu indicatori măsurabili"
+  },
+  {
+    question: "Ce tip de evaluare se poate realiza pe baza obiectivelor operaționale?",
+    options: ["Evaluare intuitivă", "Evaluare diagnostică", "Evaluare obiectivă", "Autoevaluare exclusivă"],
+    answer: "Evaluare obiectivă"
+  },
+  {
+    question: "Ce indică performanța minimă într-un obiectiv didactic?",
+    options: ["Nivelul mediu de cunoștințe", "Ceea ce elevul ideal ar trebui să facă", "Limita de jos pentru atingerea obiectivului", "Numărul de lecții planificate"],
+    answer: "Limita de jos pentru atingerea obiectivului"
+  },
+  {
+    question: "Ce reprezintă competențele specifice?",
+    options: ["Obiective pe termen lung", "Etape în realizarea competențelor generale", "Reformularea curriculumului", "Teme pentru acasă"],
+    answer: "Etape în realizarea competențelor generale"
+  },
+  {
+    question: "Cum se evidențiază competențele generale într-o disciplină?",
+    options: ["Prin activități extracurriculare", "Prin orientarea procesului educațional", "Prin detalii tehnice", "Prin notarea abilităților sociale"],
+    answer: "Prin orientarea procesului educațional"
+  },
+  {
+    question: "Ce presupune caracterizarea în domeniul afectiv (Krathwohl)?",
+    options: ["Receptarea unui mesaj", "Organizarea valorilor", "Definirea unei stări cognitive", "Comportament stabil în raport cu un sistem de valori"],
+    answer: "Comportament stabil în raport cu un sistem de valori"
+  },
+  {
+    question: "Ce domeniu vizează recunoașterea valorii unei norme?",
+    options: ["Cognitiv", "Afectiv", "Psihomotor", "Evaluativ"],
+    answer: "Afectiv"
+  },
+  {
+    question: "Ce etapă implică folosirea concretă a valorilor în comportament?",
+    options: ["Receptare", "Organizare", "Apreciere", "Caracterizare"],
+    answer: "Caracterizare"
+  },
+  {
+    question: "Ce verb NU este potrivit pentru formularea unui obiectiv operațional?",
+    options: ["Să definească", "Să judece", "Să cunoască", "Să afle"],
+    answer: "Să cunoască"
+  },
+  {
+    question: "Ce presupune evaluarea nivelului cognitiv 'aplicare' (Bloom)?",
+    options: ["Redarea fidelă a informației", "Folosirea cunoștințelor în situații concrete", "Analiză logică a faptelor", "Formarea unui punct de vedere personal"],
+    answer: "Folosirea cunoștințelor în situații concrete"
+  },
+  {
+    question: "Ce tip de obiective vizează formarea deprinderilor motrice?",
+    options: ["Cognitive", "Afective", "Psihomotorii", "Evaluative"],
+    answer: "Psihomotorii"
+  },
+  {
+    question: "Ce înseamnă taxonomia finalităților?",
+    options: ["Lista disciplinelor", "Clasificarea conținuturilor", "Clasificarea finalităților educaționale", "Descrierea competențelor"],
+    answer: "Clasificarea finalităților educaționale"
+  },
+  {
+    question: "Ce criterii sunt utilizate în taxonomia finalităților?",
+    options: ["Vârsta elevilor", "Notele școlare", "Grad de generalitate, domeniu, temporalitate", "Timpul rămas pentru predare"],
+    answer: "Grad de generalitate, domeniu, temporalitate"
+  },
+  {
+    question: "Ce obiective apar în documentele de proiectare didactică?",
+    options: ["Finalități macroeducaționale", "Idealuri naționale", "Finalități microeducaționale", "Obiective intermediare"],
+    answer: "Finalități microeducaționale"
+  },
+  {
+    question: "Ce afirmă D. Landsheere despre obiective?",
+    options: ["Se formulează în 2 pași", "Sunt orientate spre profesor", "Se bazează pe comportament, condiții, performanță, actor, context", "Nu sunt obligatorii în proiectare"],
+    answer: "Se bazează pe comportament, condiții, performanță, actor, context"
+  },
+  {
+    question: "Ce include un obiectiv formulat corect după Mager?",
+    options: ["Descrierea profesorului", "Subiectul lecției", "Condiții de realizare, comportament și performanță minimă", "Timpul alocat activității"],
+    answer: "Condiții de realizare, comportament și performanță minimă"
+  },
+  {
+    question: "Ce reprezintă competența în context educațional?",
+    options: ["Doar informație acumulată", "Aplicabilitate exclusivă teoretică", "Integrarea cunoștințelor, atitudinilor și abilităților", "Capacitate artistică"],
+    answer: "Integrarea cunoștințelor, atitudinilor și abilităților"
+  },
+  {
+    question: "Care este rolul valorilor în competență?",
+    options: ["Sunt irelevante", "Se limitează la domeniul religios", "Contribuie la atitudini și motivație", "Înlocuiesc abilitățile practice"],
+    answer: "Contribuie la atitudini și motivație"
+  },
+  {
+    question: "Ce tip de obiective pot fi măsurate imediat după o activitate?",
+    options: ["Operaționale", "Specifice", "Generale", "Globale"],
+    answer: "Operaționale"
+  },
+  {
+    question: "Ce caracter au competențele generale?",
+    options: ["Foarte concret", "Pe termen lung", "Scop de lecție", "Testare sumativă"],
+    answer: "Pe termen lung"
+  },
+  {
+    question: "Ce presupune „să exprime cu cuvinte proprii” într-un obiectiv?",
+    options: ["Analiză de text", "Reformulare personală observabilă", "Evaluare narativă", "Copierea fidelă a ideii"],
+    answer: "Reformulare personală observabilă"
+  },
+  {
+    question: "Ce nivel de obiectiv include: să clasifice, să ordoneze, să construiască?",
+    options: ["Cunoaștere", "Apreciere", "Aplicare", "Sinteză"],
+    answer: "Sinteză"
+  },
+  {
+    question: "Ce finalitate e prevăzută în lege și exprimă profilul absolventului?",
+    options: ["Obiectiv operațional", "Competență specifică", "Ideal educațional", "Obiectiv intermediar"],
+    answer: "Ideal educațional"
+  },
+  {
+    question: "Ce formulare este acceptabilă într-un obiectiv operațional?",
+    options: ["Să înțeleagă ideea textului", "Să aplice regula X în 3 exerciții corect", "Să aibă o atitudine proactivă", "Să reflecteze asupra rolului învățării"],
+    answer: "Să aplice regula X în 3 exerciții corect"
+  },
+  {
+    question: "Finalitățile procesului instructiv-educativ se numesc:",
+    options: ["Metodologii", "Finalități de sistem", "Finalități microeducaționale", "Faze ale lecției"],
+    answer: "Finalități microeducaționale"
+  },
+  {
+    question: "Taxonomia afectivă a lui Krathwohl include:",
+    options: ["Memorare, aplicare, sinteză", "Receptare, reacție, organizare", "Analiză, estimare, completare", "Argumentare, critică, autoevaluare"],
+    answer: "Receptare, reacție, organizare"
+  },
+  {
+    question: "În domeniul cognitiv, ce nivel urmează după înțelegere?",
+    options: ["Aplicare", "Cunoaștere", "Analiză", "Reacție"],
+    answer: "Aplicare"
+  },
+
   { question: "Care este obiectul de studiu al pedagogiei?", options: ["Familia", "Educația", "Psihologia", "Curriculumul"], answer: "Educația" },
   { question: "Ce metodă didactică presupune lucrul în echipă?", options: ["Prelegerea", "Învățarea prin cooperare", "Observația", "Învățarea individuală"], answer: "Învățarea prin cooperare" },
   { question: "Ce tip de educație are loc spontan și nestructurat?", options: ["Formală", "Nonformală", "Informală", "Școlară"], answer: "Informală" },
